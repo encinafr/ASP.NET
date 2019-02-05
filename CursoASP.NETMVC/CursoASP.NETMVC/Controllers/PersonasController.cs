@@ -17,18 +17,10 @@ namespace CursoASP.NETMVC.Controllers
         // GET: Personas
         public ActionResult Index()
         {
-            //Seleccionando todas las columnas
-            var listadoPersonasTodasLasColumnas = db.Persona.ToList();
-
-            //Selecionando una columna
-            var listadoDeNombres = db.Persona.Select(x => x.Nombre).ToList();
-
-            //Selecionando varias columnas proyectándolas a un tipo anónimo
-            var listadoPersonasVariasColumnaAnonimo = db.Persona.Select(x => new { Nombre = x.Nombre, Edad = x.Edad }).ToList();
-
-            //Seleccionando varias columnas y proyectándolas hacia persona
-            var listadoPersonaVariasColumas = db.Persona.Select(x => new { Nombre = x.Nombre, Edad = x.Edad }).ToList()
-                .Select(x => new Persona() { Nombre = x.Nombre, Edad = x.Edad }).ToList();
+            //var persona = db.Persona.Include("Direcciones").FirstOrDefault(x => x.Id == 2);
+            //var direcciones = persona.Direcciones;
+            var direccion = db.Direccion.FirstOrDefault(x => x.CodigoDirección == 4);
+            var nombre = direccion.Persona.Nombre;
             return View(db.Persona.ToList());
         }
 
